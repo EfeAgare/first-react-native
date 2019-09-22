@@ -8,6 +8,7 @@ const GoalInput = props => {
     setEnteredGoal(goal);
   };
   return (
+    
     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
       <TextInput
         placeholder="Course Goal"
