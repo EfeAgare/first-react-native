@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 5,
-    flex: 3
+    width: "80%"
+  
   },
   listItem: {
     padding: 10,
