@@ -11,17 +11,16 @@ import {
 import GoalItem from './components/GoalItem';
 
 import { styles } from './styles/styles';
-let i = 0
+import GoalInput from './components/GoalInput';
+let i = 0;
 export default function App() {
   // handling event (useState)
-  const [enteredGoal, setEnteredGoal] = useState('');
+ 
   const [courseGoal, setCourseGoal] = useState([]);
 
-  const goalInputHandler = goal => {
-    setEnteredGoal(goal);
-  };
+  
 
-  const addGoalHandler = () => {
+  const addGoalHandler = (enteredGoal) => {
     setCourseGoal(currentGoal => [
       ...currentGoal,
       { id: Math.random.toString(), value: enteredGoal }
@@ -29,15 +28,7 @@ export default function App() {
   };
   return (
     <View style={styles.screen}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <TextInput
-          placeholder="Course Goal"
-          style={styles.input}
-          onChangeText={goalInputHandler}
-          value={enteredGoal}
-        />
-        <Button title="ADD" style={{ flex: 1 }} onPress={addGoalHandler} />
-      </View>
+      <GoalInput addGoalHandler={addGoalHandler}/>
 
       {/* <ScrollView>
         {courseGoal.map((goal, i) => (
@@ -53,4 +44,3 @@ export default function App() {
     </View>
   );
 }
-
