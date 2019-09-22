@@ -16,6 +16,7 @@ export default function App() {
       ...currentGoal,
       { id: Math.random().toString(), value: enteredGoal }
     ]);
+    setIsAddMode(false);
   };
 
   const removeGoalHandler = id => {
@@ -23,10 +24,20 @@ export default function App() {
       return currentGoal.filter(goal => goal.id !== id);
     });
   };
+
+  const cancelGoalAdditionHandler = () => {
+    setIsAddMode(false);
+  };
   return (
     <View style={styles.screen}>
-      <Button title="ADD NEW GOAL" onPress={() => setIsAddMode(true)} />
-      <GoalInput visible={isAddMode} addGoalHandler={addGoalHandler} />
+      <View style={styles.modalButton}>
+        <Button title="ADD NEW GOAL" onPress={() => setIsAddMode(true)} />
+      </View>
+      <GoalInput
+        visible={isAddMode}
+        addGoalHandler={addGoalHandler}
+        onGoalCancel={cancelGoalAdditionHandler}
+      />
 
       {/* <ScrollView>
         {courseGoal.map((goal, i) => (
