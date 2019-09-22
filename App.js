@@ -1,30 +1,56 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  ScrollView,
+  FlatList
+} from 'react-native';
+import GoalItem from './components/GoalItem';
 
+import { styles } from './styles/styles';
+let i = 0
 export default function App() {
-  const [outputText, setOutputText] = useState(
-    'Open up App.js to start working on your app!'
-  );
+  // handling event (useState)
+  const [enteredGoal, setEnteredGoal] = useState('');
+  const [courseGoal, setCourseGoal] = useState([]);
+
+  const goalInputHandler = goal => {
+    setEnteredGoal(goal);
+  };
+
+  const addGoalHandler = () => {
+    setCourseGoal(currentGoal => [
+      ...currentGoal,
+      { id: Math.random.toString(), value: enteredGoal }
+    ]);
+  };
   return (
-    // <View style={styles.container}>
-    //   <Text>{outputText}</Text>
-    //   <Button title="Change Text" onPress={() => setOutputText("This is my first App changing")} />
-    // </View>
-    <View style={{padding: 30}}>
-      <View>
-        <TextInput placeholder="Course Goal" style={{borderBottomColor: "black", borderWidth:1, padding: 10, marginTop: 10, marginBottom: 10}}/>
-        <Button title="ADD"/>
+    <View style={styles.screen}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <TextInput
+          placeholder="Course Goal"
+          style={styles.input}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+        />
+        <Button title="ADD" style={{ flex: 1 }} onPress={addGoalHandler} />
       </View>
-      <View></View>
+
+      {/* <ScrollView>
+        {courseGoal.map((goal, i) => (
+          <View key={`${i}`}style={styles.listItem}>
+          <Text >{goal}</Text></View>
+        ))}
+      </ScrollView> */}
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={courseGoal}
+        renderItem={itemData => <GoalItem title={itemData.item.value} />}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
