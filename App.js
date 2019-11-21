@@ -45,6 +45,10 @@ export default function App() {
           <Text >{goal}</Text></View>
         ))}
       </ScrollView> */}
+
+      {/* the more efficient way to render a list, such that only the visible values are render till you 
+      scroll down 
+      */}
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={courseGoal}
